@@ -16,16 +16,34 @@ public class Card extends JLabel{
 	
 	private int value;
 	private boolean flipped = false;
+	//private JLabel cardLabel;
+	
+	public int posX;
+	public int posY;
 	
 	public Card(int value) {
 		super(new ImageIcon("src\\cards\\back1.GIF"));
 		this.value = value;
-		setIcon(new ImageIcon("src\\cards\\" + toString() + ".GIF"));
+		setPosition(10, 10);
 	}
 	public Card(int rank, int suit) {
 		super(new ImageIcon("src\\cards\\back1.GIF"));
 		value = suit * 13 + (rank - 2);
-		setIcon(new ImageIcon("src\\cards\\" + toString() + ".GIF"));
+		setPosition(10, 10);
+	}
+	public Card(int value, int posX, int posY) {
+		super(new ImageIcon("src\\cards\\back1.GIF"));
+		this.value = value;
+		setPosition(posX, posY);
+	}
+	public Card(int rank, int suit, int posX, int posY) {
+		super(new ImageIcon("src\\cards\\back1.GIF"));
+		value = suit * 13 + (rank - 2);
+		setPosition(posX, posY);
+	}
+	public void setPosition(int posX, int posY) {
+		this.posX = posX;
+		this.posY = posY;
 	}
 	public int getRank() {
 		return value % 13 + 2;
@@ -46,4 +64,7 @@ public class Card extends JLabel{
 		}
 		return "back1";
 	}
+	//public JLabel getCardLabel() {
+	//	return cardLabel;
+	//}
 }

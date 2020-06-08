@@ -4,10 +4,8 @@ import java.util.ArrayList;
 
 public class CardDisplay {
 	private JFrame frame;
-	private JPanel panel;
-	private ArrayList<JLabel> cardLabels;
+	public JPanel panel;
 	public CardDisplay(int x, int y, String name) {
-		cardLabels = new ArrayList<JLabel>();
 		frame = new JFrame("Demo Frame");
 	    panel = new JPanel();
 	    frame.getContentPane();
@@ -17,32 +15,44 @@ public class CardDisplay {
 	    frame.setSize(x, y);
 	    frame.setVisible(true);
 	}
-	public void addCard(Card card, int x, int y) {
-		
+	public void addCard(Card card) {
 		Dimension size = card.getPreferredSize();
-	    card.setBounds(x, y, size.width, size.height);
+	    card.setBounds(card.posX, card.posY, size.width, size.height);
 		panel.add(card);
-		cardLabels.add(card);
+	}
+	public void update() {
+		frame.repaint();
+	}
+	public void setCardZValue(int cardIndex, int zOrder) {
+		panel.setComponentZOrder(panel.getComponent(cardIndex), zOrder);
 	}
 	public static void main(String args[]) {
 		CardDisplay test = new CardDisplay(800, 500, "Solitare");
-		Deck testDeck = new Deck();
-		ArrayList<Card> cards = new ArrayList<Card>();
-		cards.add(new Card(10, 1));
-		//for (int i = 0; i < 4; i++) {
-		//	for (int j = 2; j < 15; j++) {
-		//		cards.add(new Card(j, i));
-		//	}
-		//}
-		//Card testCard = new Card(10, 1);
-		//Card testCard2 = new Card(11, 1);
-		//testCard.setFlipped(true);
-		//test.addCard(testCard, 100, 100);
-		//test.addCard(testCard2, 200, 100);
+		Card card1 = new Card(10, Card.CLUBS);
+		Card card2 = new Card(2, Card.DIAMONDS, 25, 25);
+		card1.setFlipped(true);//10C
+		card2.setFlipped(true);//2D
+		test.addCard(card1);
+		test.addCard(card2);
+		//test.setCardZValue(0, 0);
+		//test.setCardZValue(1, 1);
+		System.out.println(test.panel.getComponentCount());
+		test.panel.getComponent(0).setFlipped(true);
+		test.panel.setComponentZOrder(test.panel.getComponent(0), 0);
+		test.panel.setComponentZOrder(test.panel.getComponent(1), 1);
+		//Deck testDeck = new Deck();
 		//testDeck.shuffle();
-		test.addCard(cards.remove(0), 100, 100);
-		System.out.println("Done");
-		//test.addCard(testDeck.dealCard(), 0, 10);
-		//System.out.println(testDeck.dealCard());
+		/*for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 13; j++) {
+				Card cardI = testDeck.dealCard();
+				cardI.setPosition(i * 100, (13 - j) * 25);
+				cardI.setFlipped(true);
+				test.addCard(cardI);
+			}
+		}
+		for (int i = 0; i < 49; i++) {
+			test.setCardZValue(i, 50 - i);
+		}*/
+		test.update();
 	}
 }
