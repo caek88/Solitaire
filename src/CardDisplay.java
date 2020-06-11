@@ -2,6 +2,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public abstract class CardDisplay{
 	private JPanel panel;
 	public ArrayList<Card> cards = new ArrayList<Card>();
 	public CardDisplay(int x, int y, String name) {//Sets up display and initializes all instance variables
-		frame = new JFrame("Demo Frame");
+		frame = new JFrame(name);
 	    panel = new JPanel();
 	    frame.getContentPane();
 	    panel.setLayout(null);
@@ -69,12 +70,23 @@ public abstract class CardDisplay{
 	public abstract void cardClicked(Card c);//Method for card games need to implement to handle when cards are clicked
 	//Implement mouse handling
 	private class CardListener implements MouseListener{
-		public void mouseClicked(MouseEvent e) {
-			
+		public void mousePressed(MouseEvent e) {
+			int mouseX = e.getX();
+			int mouseY = e.getY();
+			for (int i = cards.size() - 1; i >= 0; i--) {
+				Point cardOrigin = cards.get(i).getOrigin();
+				Dimension cardSize = cards.get(i).getSize();
+				if (mouseX > cardOrigin.getX() && mouseX < cardOrigin.getX() + cardSize.width) {
+					if (mouseY > cardOrigin.getY() && mouseY < cardOrigin.getY() + cardSize.height) {
+						cardClicked(cards.get(i));
+						return;
+					}
+				}
+			}
 		}
 		public void mouseEntered(MouseEvent e) {}
 		public void mouseExited(MouseEvent e) {}
-		public void mousePressed(MouseEvent e) {}
+		public void mouseClicked(MouseEvent e) {}
 		public void mouseReleased(MouseEvent e) {}
 	}
 }
