@@ -1,11 +1,16 @@
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import java.awt.Dimension;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class CardDisplay {
+public abstract class CardDisplay{
 	private JFrame frame;
-	public JPanel panel;
-	public CardDisplay(int x, int y, String name) {
+	private JPanel panel;
+	public ArrayList<Card> cards = new ArrayList<Card>();
+	public CardDisplay(int x, int y, String name) {//Sets up display and initializes all instance variables
 		frame = new JFrame("Demo Frame");
 	    panel = new JPanel();
 	    frame.getContentPane();
@@ -14,45 +19,62 @@ public class CardDisplay {
 	    frame.add(panel);
 	    frame.setSize(x, y);
 	    frame.setVisible(true);
+	    CardListener listenCard = new CardListener();
+	    panel.addMouseListener(listenCard);
 	}
-	public void addCard(Card card) {
-		Dimension size = card.getPreferredSize();
-	    card.setBounds(card.posX, card.posY, size.width, size.height);
-		panel.add(card);
+	public void addCard(Card card) {//Adds a card to the list of cards to be displayed and sets bounds of the card image
+		cards.add(card);
 	}
-	public void update() {
-		frame.repaint();
-	}
-	public void setCardZValue(int cardIndex, int zOrder) {
-		panel.setComponentZOrder(panel.getComponent(cardIndex), zOrder);
-	}
-	public static void main(String args[]) {
-		CardDisplay test = new CardDisplay(800, 500, "Solitare");
-		Card card1 = new Card(10, Card.CLUBS);
-		Card card2 = new Card(2, Card.DIAMONDS, 25, 25);
-		card1.setFlipped(true);//10C
-		card2.setFlipped(true);//2D
-		test.addCard(card1);
-		test.addCard(card2);
-		//test.setCardZValue(0, 0);
-		//test.setCardZValue(1, 1);
-		System.out.println(test.panel.getComponentCount());
-		test.panel.getComponent(0).setFlipped(true);
-		test.panel.setComponentZOrder(test.panel.getComponent(0), 0);
-		test.panel.setComponentZOrder(test.panel.getComponent(1), 1);
-		//Deck testDeck = new Deck();
-		//testDeck.shuffle();
-		/*for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 13; j++) {
-				Card cardI = testDeck.dealCard();
-				cardI.setPosition(i * 100, (13 - j) * 25);
-				cardI.setFlipped(true);
-				test.addCard(cardI);
+	public void setCard(int value, int xPos, int yPos, boolean isFlipped) {//Sets the properties of a card of a specified value to a new position/flipped state
+		for (int i = 0; i < cards.size(); i++) {
+			if (cards.get(i).isValue(value)) {
+				cards.get(i).setFlipped(isFlipped);
+				cards.get(i).setPosition(xPos,  yPos);
 			}
 		}
-		for (int i = 0; i < 49; i++) {
-			test.setCardZValue(i, 50 - i);
-		}*/
-		test.update();
+	}
+	public void setCard(int value, int xPos, int yPos, boolean isFlipped, boolean dark) {//Sets the properties of a card of a specified value to a new position/flipped/dark state
+		for (int i = 0; i < cards.size(); i++) {
+			if (cards.get(i).isValue(value)) {
+				cards.get(i).setFlipped(isFlipped);
+				cards.get(i).setPosition(xPos,  yPos);
+				cards.get(i).setDark(dark);
+			}
+		}
+	}
+	public void setCard(int value, boolean isFlipped) {//Sets the properties of a card of a specified value to a new flipped state
+		for (int i = 0; i < cards.size(); i++) {
+			if (cards.get(i).isValue(value)) {
+				cards.get(i).setFlipped(isFlipped);
+			}
+		}
+	}
+	public void setCard(int value, boolean isFlipped, boolean dark) {//Sets the properties of a card of a specified value to a new flipped/dark state
+		for (int i = 0; i < cards.size(); i++) {
+			if (cards.get(i).isValue(value)) {
+				cards.get(i).setFlipped(isFlipped);
+				cards.get(i).setDark(dark);
+			}
+		}
+	}
+	public void update() {//Reprints all cards on the screen
+		panel.removeAll();
+		for (int i = cards.size() - 1; i >= 0; i--) {
+			panel.add(cards.get(i));
+		}
+		frame.revalidate();
+		frame.repaint();
+	}
+	
+	public abstract void cardClicked(Card c);//Method for card games need to implement to handle when cards are clicked
+	//Implement mouse handling
+	private class CardListener implements MouseListener{
+		public void mouseClicked(MouseEvent e) {
+			
+		}
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
 	}
 }
