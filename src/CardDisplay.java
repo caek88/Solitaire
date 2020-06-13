@@ -63,11 +63,14 @@ public abstract class CardDisplay{
 		for (int i = cards.size() - 1; i >= 0; i--) {
 			panel.add(cards.get(i));
 		}
+		drawGraphics(panel);
 		frame.revalidate();
 		frame.repaint();
 	}
 	
 	public abstract void cardClicked(Card c);//Method for card games need to implement to handle when cards are clicked
+	public abstract void locationClicked(int x, int y);
+	public abstract void drawGraphics(JPanel panel);
 	//Implement mouse handling
 	private class CardListener implements MouseListener{
 		public void mousePressed(MouseEvent e) {
@@ -83,6 +86,7 @@ public abstract class CardDisplay{
 					}
 				}
 			}
+			locationClicked(mouseX, mouseY);
 		}
 		public void mouseEntered(MouseEvent e) {}
 		public void mouseExited(MouseEvent e) {}

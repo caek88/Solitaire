@@ -17,7 +17,7 @@ public class Card extends JLabel{
 	public static final String ranks[] = {null, null, "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace"};
 	public static final String suits[] = {"clubs", "diamonds", "hearts", "spades"};
 	
-	private int value;
+	public int value;
 	private boolean flipped = false;
 	private boolean isDark = false;
 	//private JLabel cardLabel;
@@ -26,28 +26,28 @@ public class Card extends JLabel{
 	public int posY;
 	
 	public Card(int value) {//Creates a card object with the specified value
-		super(new ImageIcon("src\\cards\\back1.GIF"));
+		super(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("cards/back1.GIF")));
 		this.value = value;
 		setPosition(10, 10);
 		size = getPreferredSize();
 	    setBounds(posX, posY, size.width, size.height);
 	}
 	public Card(int rank, int suit) {//Creates a card Object with the specified rank and suit
-		super(new ImageIcon("src\\cards\\back1.GIF"));
+		super(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("cards/back1.GIF")));
 		value = suit * 13 + (rank - 2);
 		setPosition(10, 10);
 		size = getPreferredSize();
 	    setBounds(posX, posY, size.width, size.height);
 	}
 	public Card(int value, int posX, int posY) {//Creates a card object with the specified value and position
-		super(new ImageIcon("src\\cards\\back1.GIF"));
+		super(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("cards/back1.GIF")));
 		this.value = value;
 		setPosition(posX, posY);
 		size = getPreferredSize();
 	    setBounds(posX, posY, size.width, size.height);
 	}
 	public Card(int rank, int suit, int posX, int posY) {//Creates a card object with the specified rank, suit, and location
-		super(new ImageIcon("src\\cards\\back1.GIF"));
+		super(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("cards/back1.GIF")));
 		value = suit * 13 + (rank - 2);
 		setPosition(posX, posY);
 		size = getPreferredSize();
@@ -73,11 +73,11 @@ public class Card extends JLabel{
 	}
 	public void setFlipped(boolean flipped) {//Sets whether the card is flipped
 		this.flipped = flipped;
-		setIcon(new ImageIcon("src\\cards\\" + toString() + ".GIF"));
+		setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("cards/" + toString() + ".GIF")));
 	}
 	public void setDark(boolean dark) {//Sets the to light/dark
 		isDark = dark;
-		setIcon(new ImageIcon("src\\cards\\" + toString() + ".GIF"));
+		setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("cards/" + toString() + ".GIF")));
 	}
 	public boolean getDark() {
 		return isDark;
@@ -96,6 +96,9 @@ public class Card extends JLabel{
 			return Card.ranks[getRank()] + Card.suits[getSuit()] + (isDark?"S":"");
 		}
 		return "back1";
+	}
+	public boolean equals(Card c) {
+		return c.isValue(value);
 	}
 	//public JLabel getCardLabel() {
 	//	return cardLabel;

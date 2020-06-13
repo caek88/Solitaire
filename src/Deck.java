@@ -23,12 +23,7 @@ public class Deck {
 	public Card dealCard() {
 		return cards.remove(0);
 	}
-	
-	public static void main(String args[]) {
-		Deck foo = new Deck();
-		foo.shuffle();
-		for (int i = 0; i < 52; i++) {
-			System.out.println(foo.dealCard());
-		}
+	public int deckSize() {
+		return cards.size();
 	}
 }
