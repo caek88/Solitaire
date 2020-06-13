@@ -1,3 +1,12 @@
+//-------------------------------------------//
+//              CardDisplay.java             //
+//              Author: C Ekeman             //
+//                 6-13-2020                 //
+//    Defines the Card display class which   //
+//handles the GUI and defines methods for the//
+//           Solitaire class to use          //
+//-------------------------------------------//
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;

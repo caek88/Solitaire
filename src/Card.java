@@ -1,3 +1,10 @@
+//-------------------------------------------//
+//                 Card.java                 //
+//              Author: C Ekeman             //
+//                 6-13-2020                 //
+//  Defines the Card class extending JLabel  //
+//-------------------------------------------//
+
 import javax.swing.ImageIcon;
 
 import java.awt.Dimension;

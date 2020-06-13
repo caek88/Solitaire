@@ -1,3 +1,10 @@
+//-------------------------------------------//
+//                 Deck.java                 //
+//              Author: C Ekeman             //
+//                 6-13-2020                 //
+//  Defines the Deck class that generates a  //
+//           random deck of cards            //
+//-------------------------------------------//
 import java.util.ArrayList;
 
 public class Deck {

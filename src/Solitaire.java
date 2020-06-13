@@ -1,3 +1,9 @@
+//-------------------------------------------//
+//               Solitaire.java              //
+//              Author: C Ekeman             //
+//                 6-13-2020                 //
+//  The main class that has the game's logic //
+//-------------------------------------------//
 import java.util.ArrayList;
 
 import java.awt.Dimension;
